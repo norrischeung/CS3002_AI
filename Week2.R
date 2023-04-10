@@ -1,0 +1,17 @@
+mydata = read.csv('C:\\Users\\noriss\\Documents\\Brunel\\Year3\\3002 AI\\spaeth_01.csv',sep=",")
+plot(mydata)
+mydata = na.omit(mydata) 
+mydata = scale(mydata) 
+d<-dist(mydata,method = "euclidean")
+fit<-hclust(d,method="average")
+plot(fit)
+Hgroups<-cutree(fit,k=5)
+rect.hclust(fit,k=5,border="red")
+plot(mydata,col=Hgroups)
+fit<-kmeans(mydata,5)
+aggregate(mydata,by=list(fit$cluster),FUN=mean)
+Kgroups = fit$cluster
+plot(mydata,col=Kgroups)
+source("C:\\Users\\noriss\\Documents\\Brunel\\Year3\\3002 AI\\WK_R.r")
+wk = WK_R(Kgroups,Hgroups)
+
